@@ -14,7 +14,7 @@ from omegaconf import II
 
 import numpy as np
 from fairseq import metrics, utils
-from fairseq.bert import BertTokenizer
+from bert import BertTokenizer
 from fairseq.data import (
     AppendTokenDataset,
     ConcatDataset,
