@@ -260,8 +260,8 @@ class TransformerBertModelBase(FairseqBertEncoderDecoderModel):
             encoder = fsdp_wrap(encoder, min_num_params=cfg.min_params_to_wrap)
             decoder = fsdp_wrap(decoder, min_num_params=cfg.min_params_to_wrap)
 
-        bertencoder = BertModel.from_pretrained(args.bert_model_name)
-        cfg.bert_out_dim = bertencoder.hidden_size
+        #bertencoder = BertModel.from_pretrained(args.bert_model_name)
+        #cfg.bert_out_dim = bertencoder.hidden_size
         return cls(cfg, encoder, decoder, bertencoder, src_berttokenizer, args.mask_cls_sep, args)
 
     @classmethod

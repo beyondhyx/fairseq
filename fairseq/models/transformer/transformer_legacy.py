@@ -214,6 +214,9 @@ class TransformerBertModel(TransformerBertModelBase):
             args.min_params_to_wrap = getattr(
                 args, "min_params_to_wrap", DEFAULT_MIN_PARAMS_TO_WRAP
             )
+        bertencoder = BertModel.from_pretrained(args.bert_model_name)
+        args.bert_out_dim = bertencoder.hidden_size
+        
         cfg = TransformerConfig.from_namespace(args)
         return super().build_model(cfg, task)
 
