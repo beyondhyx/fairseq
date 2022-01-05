@@ -17,7 +17,7 @@ from fairseq.models.transformer.transformer_config import (
 from fairseq.models.transformer.transformer_base import (
     TransformerModelBase,
 )
-
+from bert import BertModel,BertTokenizer
 
 @register_model("transformer")
 class TransformerModel(TransformerModelBase):
@@ -151,6 +151,88 @@ class TransformerModel(TransformerModelBase):
         )
 
 
+@register_model("transformer_bert")
+class TransformerBertModel(TransformerBertModelBase):
+    """
+    This is the legacy implementation of the transformer model that
+    uses argparse for configuration.
+    """
+
+    def __init__(self, args, encoder, decoder):
+        cfg = TransformerConfig.from_namespace(args)
+        super().__init__(cfg, encoder, decoder)
+        self.args = args
+
+    @classmethod
+    def add_args(cls, parser):
+        """Add model-specific arguments to the parser."""
+        # we want to build the args recursively in this case.
+        # do not set defaults so that settings defaults from various architectures still works
+        gen_parser_from_dataclass(
+            parser, TransformerConfig(), delete_default=True, with_prefix=""
+        )
+
+    @classmethod
+    def build_model(cls, args, task):
+        """Build a new model instance."""
+
+        # make sure all arguments are present in older models
+        base_architecture(args)
+
+        if args.encoder_layers_to_keep:
+            args.encoder_layers = len(args.encoder_layers_to_keep.split(","))
+        if args.decoder_layers_to_keep:
+            args.decoder_layers = len(args.decoder_layers_to_keep.split(","))
+
+        if getattr(args, "max_source_positions", None) is None:
+            args.max_source_positions = DEFAULT_MAX_SOURCE_POSITIONS
+        if getattr(args, "max_target_positions", None) is None:
+            args.max_target_positions = DEFAULT_MAX_TARGET_POSITIONS
+
+        src_dict, tgt_dict = task.source_dictionary, task.target_dictionary
+
+        if args.share_all_embeddings:
+            if src_dict != tgt_dict:
+                raise ValueError("--share-all-embeddings requires a joined dictionary")
+            if args.encoder_embed_dim != args.decoder_embed_dim:
+                raise ValueError(
+                    "--share-all-embeddings requires --encoder-embed-dim to match --decoder-embed-dim"
+                )
+            if args.decoder_embed_path and (
+                args.decoder_embed_path != args.encoder_embed_path
+            ):
+                raise ValueError(
+                    "--share-all-embeddings not compatible with --decoder-embed-path"
+                )
+            args.share_decoder_input_output_embed = True
+
+        if getattr(args, "offload_activations", False):
+            args.checkpoint_activations = True  # offloading implies checkpointing
+
+        if not args.share_all_embeddings:
+            args.min_params_to_wrap = getattr(
+                args, "min_params_to_wrap", DEFAULT_MIN_PARAMS_TO_WRAP
+            )
+        cfg = TransformerConfig.from_namespace(args)
+        return super().build_model(cfg, task)
+
+    @classmethod
+    def build_embedding(cls, args, dictionary, embed_dim, path=None):
+        return super().build_embedding(
+            TransformerConfig.from_namespace(args), dictionary, embed_dim, path
+        )
+
+    @classmethod
+    def build_encoder(cls, args, src_dict, embed_tokens):
+        return super().build_encoder(
+            TransformerConfig.from_namespace(args), src_dict, embed_tokens
+        )
+
+    @classmethod
+    def build_decoder(cls, args, tgt_dict, embed_tokens):
+        return super().build_decoder(
+            TransformerConfig.from_namespace(args), tgt_dict, embed_tokens
+        )
 # architectures
 
 
@@ -233,6 +315,17 @@ def transformer_iwslt_de_en(args):
     args.decoder_layers = getattr(args, "decoder_layers", 6)
     base_architecture(args)
 
+@register_model_architecture("transformer_bert", "transformer_unipus_zh_en")
+def transformer_iwslt_de_en(args):
+    args.encoder_embed_dim = getattr(args, "encoder_embed_dim", 512)
+    args.encoder_ffn_embed_dim = getattr(args, "encoder_ffn_embed_dim", 1024)
+    args.encoder_attention_heads = getattr(args, "encoder_attention_heads", 4)
+    args.encoder_layers = getattr(args, "encoder_layers", 6)
+    args.decoder_embed_dim = getattr(args, "decoder_embed_dim", 512)
+    args.decoder_ffn_embed_dim = getattr(args, "decoder_ffn_embed_dim", 1024)
+    args.decoder_attention_heads = getattr(args, "decoder_attention_heads", 4)
+    args.decoder_layers = getattr(args, "decoder_layers", 6)
+    base_architecture(args)
 
 @register_model_architecture("transformer", "transformer_wmt_en_de")
 def transformer_wmt_en_de(args):

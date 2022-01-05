@@ -344,3 +344,27 @@ class TransformerEncoder(TransformerEncoderBase):
         return super().build_encoder_layer(
             TransformerConfig.from_namespace(args),
         )
+
+class TransformerBertEncoder(TransformerEncoderBase):
+    def __init__(self, cfg, dictionary, embed_tokens):
+        super().__init__(
+            cfg,
+            dictionary,
+            embed_tokens,
+        )
+        bert_gates = cfg.bert_gates
+        bert_gates = [x == 1 for x in bert_gates]
+        assert len(bert_gates) == args.decoder_layers
+        print('bert_gates', bert_gates)
+
+    def build_encoder_layer(self, cfg):
+        layer = transformer_layer.TransformerBertEncoderLayer(cfg,[x == 1 for x in cfg.bert_gates])
+        checkpoint = cfg.checkpoint_activations
+        if checkpoint:
+            offload_to_cpu = cfg.offload_activations
+            layer = checkpoint_wrapper(layer, offload_to_cpu=offload_to_cpu)
+        # if we are checkpointing, enforce that FSDP always wraps the
+        # checkpointed layer, regardless of layer size
+        min_params_to_wrap = cfg.min_params_to_wrap if not checkpoint else 0
+        layer = fsdp_wrap(layer, min_num_params=min_params_to_wrap)
+        return layer
