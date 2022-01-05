@@ -10,8 +10,8 @@ from .transformer_config import (
     DEFAULT_MAX_TARGET_POSITIONS,
     DEFAULT_MIN_PARAMS_TO_WRAP,
 )
-from .transformer_decoder import TransformerDecoder, TransformerDecoderBase, TransformerBertDecoder, TransformerBertDecoderBase, Linear
-from .transformer_encoder import TransformerEncoder, TransformerEncoderBase, TransformerBertEncoder, TransformerBertEncoderBase
+from .transformer_decoder import TransformerDecoder, TransformerBertDecoder, TransformerDecoderBase, Linear
+from .transformer_encoder import TransformerEncoder, TransformerBertEncoder, TransformerEncoderBase
 from .transformer_legacy import (
     TransformerModel,
     TransformerBertModel,
