@@ -15,7 +15,7 @@ from fairseq.models.transformer import (
     TransformerEncoderBase,
     TransformerBertEncoder
     TransformerDecoderBase,
-    TransformerBertDecoder
+    TransformerBertDecoder,
     TransformerConfig,
 )
 from torch import Tensor
