@@ -530,7 +530,7 @@ class TransformerBertEncoderLayer(TransformerEncoderLayerBase):
             qn_block_size=self.quant_noise_block_size,
         )
 
-   def forward(
+    def forward(
         self,
         x,
         encoder_padding_mask: Optional[Tensor],
