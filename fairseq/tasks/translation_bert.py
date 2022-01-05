@@ -258,8 +258,8 @@ class TranslationBertConfig(FairseqDataclass):
     warmup_nmt_file: str = field(
         default='checkpoint_nmt.pt',metadata={'help':'checkpoint_nmt.pt'}
     )
-    bert_gates: list = field(
-        default_factory=lambda: [1, 1, 1, 1, 1, 1],metadata={'help':'bert_gates'}
+    bert_gates: str = field(
+        default='[1, 1, 1, 1, 1, 1]',metadata={'help':'bert_gates'}
     )
     bert_first: bool = field(
         default=False,metadata={'help':'bert_first'}
