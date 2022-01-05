@@ -10,10 +10,11 @@ from .transformer_config import (
     DEFAULT_MAX_TARGET_POSITIONS,
     DEFAULT_MIN_PARAMS_TO_WRAP,
 )
-from .transformer_decoder import TransformerDecoder, TransformerDecoderBase, Linear
-from .transformer_encoder import TransformerEncoder, TransformerEncoderBase
+from .transformer_decoder import TransformerDecoder, TransformerDecoderBase, TransformerBertDecoder, TransformerBertDecoderBase, Linear
+from .transformer_encoder import TransformerEncoder, TransformerEncoderBase, TransformerBertEncoder, TransformerBertEncoderBase
 from .transformer_legacy import (
     TransformerModel,
+    TransformerBertModel,
     base_architecture,
     tiny_architecture,
     transformer_iwslt_de_en,
@@ -23,7 +24,7 @@ from .transformer_legacy import (
     transformer_wmt_en_de_big,
     transformer_wmt_en_de_big_t2t,
 )
-from .transformer_base import TransformerModelBase, Embedding
+from .transformer_base import TransformerModelBase, TransformerBertModelBase, Embedding
 
 
 __all__ = [
