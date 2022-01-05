@@ -407,7 +407,7 @@ class TranslationBertTask(FairseqTask):
             left_pad_target=self.cfg.left_pad_target,
             max_source_positions=self.cfg.max_source_positions,
             max_target_positions=self.cfg.max_target_positions,
-            bert_model_name = self.bert_model_name
+            bert_model_name = self.bert_model_name,
             load_alignments=self.cfg.load_alignments,
             truncate_source=self.cfg.truncate_source,
             num_buckets=self.cfg.num_batch_buckets,
