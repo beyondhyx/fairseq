@@ -336,16 +336,16 @@ class TranslationBertTask(FairseqTask):
         :mod:`fairseq-generate` and :mod:`fairseq-interactive`.
     """
 
-    cfg: TranslationConfig
+    cfg: TranslationBertConfig
 
-    def __init__(self, cfg: TranslationConfig, src_dict, tgt_dict):
+    def __init__(self, cfg: TranslationBertConfig, src_dict, tgt_dict):
         super().__init__(cfg)
         self.src_dict = src_dict
         self.tgt_dict = tgt_dict
         self.bert_model_name = args.bert_model_name
 
     @classmethod
-    def setup_task(cls, cfg: TranslationConfig, **kwargs):
+    def setup_task(cls, cfg: TranslationBertConfig, **kwargs):
         """Setup the task (e.g., load dictionaries).
 
         Args:
