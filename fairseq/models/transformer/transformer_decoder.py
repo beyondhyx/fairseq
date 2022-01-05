@@ -504,7 +504,7 @@ class TransformerBertDecoder(TransformerDecoderBase):
         if cfg.decoder_no_bert:
             layer = transformer_layer.TransformerDecoderLayerBase(cfg, no_encoder_attn)
         else:
-            layer = transformer_layer.TransformerBertDecoderLayer(cfg, no_encoder_attn, bert_gate=[True]*cfg.decoder_layers])
+            layer = transformer_layer.TransformerBertDecoderLayer(cfg, no_encoder_attn, bert_gate=[True]*cfg.decoder_layers)
         checkpoint = cfg.checkpoint_activations
         if checkpoint:
             offload_to_cpu = cfg.offload_activations
