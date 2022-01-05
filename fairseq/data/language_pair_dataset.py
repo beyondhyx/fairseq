@@ -225,7 +225,7 @@ def collate_bert(
     src_bert_tokens = merge(
         "source_bert",
         left_pad=left_pad_source,
-        bert_input=True)
+        bert_input=True,
         pad_to_length=pad_to_length["source"] if pad_to_length is not None else None,
     )
 
