@@ -352,13 +352,14 @@ class TransformerBertEncoder(TransformerEncoderBase):
             dictionary,
             embed_tokens,
         )
-        bert_gates = cfg.bert_gates
-        bert_gates = [x == 1 for x in bert_gates]
-        assert len(bert_gates) == args.decoder_layers
+        #bert_gates = cfg.bert_gates
+        #bert_gates = [x == 1 for x in bert_gates]
+        bert_gates = [True]*cfg.decoder_layers
+        assert len(bert_gates) == cfg.decoder_layers
         print('bert_gates', bert_gates)
 
     def build_encoder_layer(self, cfg):
-        layer = transformer_layer.TransformerBertEncoderLayer(cfg,[x == 1 for x in cfg.bert_gates])
+        layer = transformer_layer.TransformerBertEncoderLayer(cfg,[True]*cfg.decoder_layers)
         checkpoint = cfg.checkpoint_activations
         if checkpoint:
             offload_to_cpu = cfg.offload_activations

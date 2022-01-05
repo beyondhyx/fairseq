@@ -493,9 +493,10 @@ class TransformerBertDecoder(TransformerDecoderBase):
             output_projection=None, 
         )
 
-        bert_gates = cfg.bert_gates
-        bert_gates = [x == 1 for x in bert_gates]
-        assert len(bert_gates) == args.decoder_layers
+        #bert_gates = cfg.bert_gates
+        #bert_gates = [x == 1 for x in bert_gates]
+        bert_gates = [True]*cfg.decoder_layers
+        assert len(bert_gates) == cfg.decoder_layers
         print('bert_gates', bert_gates)
 
 
