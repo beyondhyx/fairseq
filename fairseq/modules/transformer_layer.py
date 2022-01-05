@@ -520,11 +520,11 @@ class TransformerBertEncoderLayer(TransformerEncoderLayerBase):
 
     def build_self_attention_bert(self, embed_dim, cfg):
         return MultiheadAttention(
-            self.embed_dim,
+            embed_dim,
             cfg.encoder.attention_heads,
             dropout=cfg.attention_dropout,
-            kdim=bert_out_dim, 
-            vdim=bert_out_dim,
+            kdim=cfg.bert_out_dim, 
+            vdim=cfg.bert_out_dim,
             self_attention=False,
             q_noise=self.quant_noise,
             qn_block_size=self.quant_noise_block_size,
