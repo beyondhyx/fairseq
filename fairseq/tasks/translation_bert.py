@@ -423,7 +423,7 @@ class TranslationBertTask(FairseqTask):
             tgt_dict=self.target_dictionary,
             srcbert=srcbert, 
             srcbert_sizes=srcbert_sizes, 
-            berttokenizer=berttokenizer
+            berttokenizer=berttokenizer,
             constraints=constraints,
         )
 
