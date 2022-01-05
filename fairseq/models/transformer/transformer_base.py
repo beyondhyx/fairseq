@@ -13,7 +13,9 @@ from fairseq.distributed import fsdp_wrap
 from fairseq.models import FairseqEncoderDecoderModel, FairseqBertEncoderDecoderModel
 from fairseq.models.transformer import (
     TransformerEncoderBase,
+    TransformerBertEncoder
     TransformerDecoderBase,
+    TransformerBertDecoder
     TransformerConfig,
 )
 from torch import Tensor
