@@ -534,8 +534,8 @@ class TransformerBertEncoderLayer(TransformerEncoderLayerBase):
         self,
         x,
         encoder_padding_mask: Optional[Tensor],
-        attn_mask: Optional[Tensor] = None,
         bert_encoder_out: Optional[Tensor],
+        attn_mask: Optional[Tensor] = None,
         bert_encoder_padding_mask: Optional[Tensor] = None
     ):
         """
