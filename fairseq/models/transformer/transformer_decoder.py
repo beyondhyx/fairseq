@@ -514,7 +514,8 @@ class TransformerBertDecoder(TransformerDecoderBase):
         layer = fsdp_wrap(layer, min_num_params=min_params_to_wrap)
         return layer
 
-     def forward(
+
+    def forward(
         self,
         prev_output_tokens,
         encoder_out: Optional[Dict[str, List[Tensor]]] = None,
