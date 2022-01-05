@@ -342,7 +342,7 @@ class TranslationBertTask(FairseqTask):
         super().__init__(cfg)
         self.src_dict = src_dict
         self.tgt_dict = tgt_dict
-        self.bert_model_name = args.bert_model_name
+        self.bert_model_name = cfg.bert_model_name
 
     @classmethod
     def setup_task(cls, cfg: TranslationBertConfig, **kwargs):
