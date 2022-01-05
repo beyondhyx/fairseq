@@ -181,7 +181,7 @@ def collate_bert(
     def merge(key, left_pad, move_eos_to_beginning=False, bert_input=False, pad_to_length=None):
         return data_utils.collate_tokens(
             [s[key] for s in samples],
-            pad_idx if not bert_input else bert_pad_idx
+            pad_idx if not bert_input else bert_pad_idx,
             eos_idx,
             left_pad,
             move_eos_to_beginning,
