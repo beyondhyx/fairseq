@@ -27,8 +27,7 @@ from .indexed_dataset import (
     IndexedRawTextDataset,
     MMapIndexedDataset,
 )
-from .language_pair_dataset import LanguagePairDataset
-from .language_pair_dataset_bert import BertLanguagePairDataset
+from .language_pair_dataset import LanguagePairDataset,BertLanguagePairDataset
 from .list_dataset import ListDataset
 from .lm_context_window_dataset import LMContextWindowDataset
 from .lru_cache_dataset import LRUCacheDataset
