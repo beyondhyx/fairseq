@@ -16,6 +16,7 @@ from fairseq.models.transformer.transformer_config import (
 )
 from fairseq.models.transformer.transformer_base import (
     TransformerModelBase,
+    TransformerBertModelBase
 )
 from bert import BertModel,BertTokenizer
 
