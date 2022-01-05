@@ -270,7 +270,7 @@ class TranslationBertConfig(FairseqDataclass):
     encoder_bert_dropout_ratio: float = field(
         default='0.25',metadata={'help':'encoder_bert_dropout_ratio'}
     )
-    bert_output_layer: int = feild(
+    bert_output_layer: int = field(
         default=-1,metadata={'help':'bert-output-layer'}
     )
     encoder_bert_mixup: bool = field(
