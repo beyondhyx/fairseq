@@ -216,7 +216,7 @@ class TransformerBertModel(TransformerBertModelBase):
             )
         bertencoder = BertModel.from_pretrained(args.bert_model_name)
         args.bert_out_dim = bertencoder.hidden_size
-        
+
         cfg = TransformerConfig.from_namespace(args)
         return super().build_model(cfg, task)
 
@@ -320,7 +320,7 @@ def transformer_iwslt_de_en(args):
     base_architecture(args)
 
 @register_model_architecture("transformer_bert", "transformer_unipus_zh_en")
-def transformer_iwslt_de_en(args):
+def transformer_unipus_zh_en(args):
     args.encoder_embed_dim = getattr(args, "encoder_embed_dim", 512)
     args.encoder_ffn_embed_dim = getattr(args, "encoder_ffn_embed_dim", 1024)
     args.encoder_attention_heads = getattr(args, "encoder_attention_heads", 4)
@@ -329,6 +329,18 @@ def transformer_iwslt_de_en(args):
     args.decoder_ffn_embed_dim = getattr(args, "decoder_ffn_embed_dim", 1024)
     args.decoder_attention_heads = getattr(args, "decoder_attention_heads", 4)
     args.decoder_layers = getattr(args, "decoder_layers", 6)
+    base_architecture(args)
+
+@register_model_architecture("transformer", "transformer_unipus_deep25")
+def transformer_unipus_deep25(args):
+    args.encoder_layers = getattr(args, "encoder_layers", 25)
+    args.decoder_layers = getattr(args, "decoder_layers", 25)
+    base_architecture(args)
+
+@register_model_architecture("transformer", "transformer_unipus_deep16")
+def transformer_unipus_deep25(args):
+    args.encoder_layers = getattr(args, "encoder_layers", 16)
+    args.decoder_layers = getattr(args, "decoder_layers", 16)
     base_architecture(args)
 
 @register_model_architecture("transformer", "transformer_wmt_en_de")
