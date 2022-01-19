@@ -483,7 +483,7 @@ class TransformerDecoder(TransformerDecoderBase):
 
 class TransformerBertDecoder(TransformerDecoderBase): 
     def __init__(
-        self, cfg, no_encoder_attn=False, add_bias_kv=False, add_zero_attn=False, bert_gate=True
+        self, cfg, dictionary, embed_tokens, no_encoder_attn=False, add_bias_kv=False, add_zero_attn=False, bert_gate=True
     ):
         super().__init__(
             cfg,

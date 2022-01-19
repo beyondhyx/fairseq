@@ -380,6 +380,7 @@ class FairseqBertEncoderDecoderModel(FairseqEncoderDecoderModel):
         self.berttokenizer = berttokenizer
         self.mask_cls_sep = mask_cls_sep
         self.bert_output_layer = getattr(args, 'bert_output_layer', -1)
+        self.args = args
 
         check_type(self.encoder, FairseqEncoder)
         check_type(self.decoder, FairseqDecoder)

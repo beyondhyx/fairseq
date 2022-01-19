@@ -645,6 +645,7 @@ class BertLanguagePairDataset(LanguagePairDataset):
         left_pad_source=True, left_pad_target=False,
         max_source_positions=1024, max_target_positions=1024,
         shuffle=True, input_feeding=True, remove_eos_from_source=False, append_eos_to_target=False,
+        align_dataset=None, eos=None, num_buckets=0, pad_to_multiple=1
     ):
         super.__init__(src,
         src_sizes,
@@ -658,14 +659,14 @@ class BertLanguagePairDataset(LanguagePairDataset):
         input_feeding=True,
         remove_eos_from_source=False,
         append_eos_to_target=False,
-        align_dataset=None,
+        align_dataset=align_dataset,
         constraints=None,
         append_bos=False,
-        eos=None,
-        num_buckets=0,
+        eos=eos,
+        num_buckets=num_buckets,
         src_lang_id=None,
         tgt_lang_id=None,
-        pad_to_multiple=1,)
+        pad_to_multiple=pad_to_multiple,)
         self.srcbert = srcbert
         self.srcbert_sizes = np.array(srcbert_sizes) if srcbert_sizes is not None else None
         self.berttokenizer = berttokenizer
